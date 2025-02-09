@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+@import "./components/index.css";
+@import "./template/index.css";
+@import "./vendors/index.css";
+@import "./tailwind/index.css";
+
+
+
+/* Form tree */
+
+.child-tree {
+    margin: 40px 10px 10px 40px;
+    position: relative;
+}
+
+.nodeBox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.beforeTitle {
+    width: 30px;
+    height: 30px;
+    background-color: #bbade3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.bt-inner {
+    width: 22px;
+    height: 22px;
+    background-color: #6a3aec;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    cursor: pointer;
+
+}
+
+.afterTitle {
+    display: flex;
+    cursor: pointer;
+}
+
+.nodeContainer {
+    position: relative;
+}
+
+.nodeBoxVLine {
+    width: 2px;
+    height: calc(100% - 26px);
+    background-color: #bbade3;
+    position: absolute;
+    top: 13px;
+    left: 0px;
+}
+
+.nodeBoxHLine {
+    width: 42px;
+    height: 2px;
+    background-color: #bbade3;
+    position: absolute;
+    top: 15px;
+    left: -38px;
+}
+
+.nodeBoxHLine2{
+    width: 42px;
+    height: 2px;
+    background-color: #bbade7;
+    position: absolute;
+    bottom: 13px;
+    left: -38px;
+    }
+
+/* Modal */
+    .viewElement{ 
+        overflow: auto !important;
+        height: 100%;
+        max-height: 600px !important;
+        margin: 20px 0px 20px 20px;
+        padding-right: 10px;
+    }
+    .dialog{ 
+        max-height: 600px !important;
+ 
+    }
+
+.form-child-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
