@@ -73,9 +73,9 @@ const AnalysisDashboard = () => {
         <div className='flex justify-between '>
           <div>
             <h4 className='mb-1' onClick={test}>
-              Hello,Sagar!{currentDay - 1}
+              Hello,Sagar!
             </h4>
-            <p>You have 5 tasks on hand.</p>
+            <p>You have {allTaskData?.length || 'some'} tasks on hand.</p>
           </div>
           <div className='flex gap-3'>
             <Button
