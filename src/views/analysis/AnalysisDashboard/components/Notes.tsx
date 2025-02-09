@@ -129,7 +129,12 @@ export const Notes = ({
   };
   return (
     <Card className='bg-gray-50 dark:bg-gray-700 border-0' onClick={test}>
-      {[{ title: 'Work details', string: workDetails.description },...allNotes].map(
+      {[
+      { title: 'Work details', string: workDetails.description} ,
+      { title: 'Task Notes', string: workDetails.notes },
+      { title: 'Reason for unsatisfaction', string: workDetails.reason_for_satisfaction },
+
+      ...allNotes].map(
         (i, index) => {
           return (
             <div className='flex flex-col gap-3' key={index}>

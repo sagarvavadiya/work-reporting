@@ -67,6 +67,7 @@ const NewTaskForm = () => {
                 alert('Error on creating task reporting:' + response.data.message)
             }
         } catch (error: any) {
+            console.log(error);
             alert(error?.message ? error?.message : error)
             return false
         }

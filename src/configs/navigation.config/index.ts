@@ -17,16 +17,16 @@ const navigationConfig: NavigationTree[] = [
         subMenu: [],
     },
     /** Example purpose only, please remove */
-    {
-        key: 'manageTasks',
-        path: '/manage-tasks',
-        title: 'Manage tasks',
-        translateKey: 'nav.manage-task',
-        icon: 'singleMenu',
-        type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
-        subMenu: [],
-    },
+    // {
+    //     key: 'manageTasks',
+    //     path: '/manage-tasks',
+    //     title: 'Manage tasks',
+    //     translateKey: 'nav.manage-task',
+    //     icon: 'singleMenu',
+    //     type: NAV_ITEM_TYPE_ITEM,
+    //     authority: [],
+    //     subMenu: [],
+    // },
     {
         key: 'analysisTasks',
         path: '/analysis-tasks',

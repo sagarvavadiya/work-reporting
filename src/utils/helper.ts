@@ -500,17 +500,30 @@ export function formatDateFromTimestamp(timestamp: string): string {
 }
 
 
-export const sortParseData = (data:any[]) =>{
+export const sortParseData = (data: any[]) => {
   const sortedData = data.sort((a, b) => {
-    const idA = JSON.parse(a.jsonData).id;
-    const idB = JSON.parse(b.jsonData).id;
+    let idA = null;
+    let idB = null;
+
+    try {
+      // Attempt to parse JSON, and handle errors if JSON is malformed
+      const parsedA = JSON.parse(a.jsonData);
+      const parsedB = JSON.parse(b.jsonData);
+
+      idA = parsedA.id;
+      idB = parsedB.id;
+    } catch (error) {
+      // If JSON parsing fails, log the error or handle it differently (e.g., set a default value)
+      console.error("Error parsing JSON:", error);
+      idA = idB = -1; // Assign a default value in case of parsing error
+    }
 
     return idA - idB;
   });
 
-
-  return sortedData
+  return sortedData;
 }
+
 
 
 export function mergeObjects(data:any) {

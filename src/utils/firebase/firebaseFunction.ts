@@ -43,7 +43,7 @@ export async function updateDocument({id, jsonData,table}:{id:number, jsonData:a
 
 /** 📌 DELETE: Delete a document */
 export async function deleteDocument(id:number,table:string) {
-    const { error } = await supabase.from(table).delete().eq("id", 27);
+    const { error } = await supabase.from(table).delete().eq("id", id);
     if (error) return apiResponse({status:500, data:error});
     else return apiResponse({status:200, data:{message:'Record deleted successfully'}});
 }
