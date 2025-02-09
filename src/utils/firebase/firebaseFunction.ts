@@ -1,20 +1,23 @@
- import { supabase } from "./configuration"; 
+ import { sortParseData } from "../helper";
+import { supabase } from "./configuration";
 
 
-const apiResponse = (response:{data:any, status:number}) => { 
+const apiResponse = (response:{data:any, status:number}) => {
     const { data, status } = response
-    return { 
-        status: status, 
+    return {
+        status: status,
         data:data??{}
     };
 }
 /** 📌 CREATE: Add a new document */
 
 export async function createDocument(body:{table:string, jsonData:string}) {
+
     const { jsonData,table } = body
     const { data, error } = await supabase
         .from(table)
-        .insert([{ jsonData }]);
+        .insert({ jsonData });
+    // let error = false
     if (error) return apiResponse({status:500, data:error});
     else return apiResponse({status:200, data:data});
 }
@@ -23,23 +26,24 @@ export async function createDocument(body:{table:string, jsonData:string}) {
 export async function getDocument(table:string) {
     const { data, error } = await supabase.from(table).select();
     if (error) return apiResponse({status:500, data:error});
-    else return apiResponse({status:200, data:data});
+    else return apiResponse({status:200, data:sortParseData(data)});
 }
 
 /** 📌 UPDATE: Update a document */
-export async function updateDocument(id:number, record:any) {
+export async function updateDocument({id, jsonData,table}:{id:number, jsonData:any,table:string}) {
     const { data, error } = await supabase
-        .from("quiz")
-        .update(record)
+        .from(table)
+        .update([{ jsonData:JSON.stringify(JSON.parse(jsonData)) }])
         .eq("id", id);
-
-    if (error) apiResponse({status:500, data:error});
-    else apiResponse({status:200, data:{message:'Record updated successfully'  }});
+    // console.log('updateDocument',jsonData);
+// let error = false
+    if (error) return apiResponse({status:500, data:error});
+    else return apiResponse({status:200, data:{message:'Record updated successfully'  }});
 }
 
 /** 📌 DELETE: Delete a document */
-export async function deleteDocument(id:number) {
-    const { error } = await supabase.from("quiz").delete().eq("id", id);
+export async function deleteDocument(id:number,table:string) {
+    const { error } = await supabase.from(table).delete().eq("id", 27);
     if (error) return apiResponse({status:500, data:error});
     else return apiResponse({status:200, data:{message:'Record deleted successfully'}});
 }

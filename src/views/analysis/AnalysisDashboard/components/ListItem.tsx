@@ -6,7 +6,12 @@ import { EllipsisButton, UsersAvatarGroup } from '@/components/shared';
 import { INode } from '@/views/tasks/type';
 import { useEffect, useState } from 'react';
 import { isArray } from 'lodash';
-import { calculateTimeDistribution, getNumbers, getSum, mergeTasksData } from '@/utils/helper';
+import {
+  calculateTimeDistribution,
+  getNumbers,
+  getSum,
+  mergeTasksData,
+} from '@/utils/helper';
 import { TimeDistributionCard } from './TimeDistributionCard';
 import { Notes } from './Notes';
 
@@ -26,7 +31,6 @@ export type ListItemData = {
     img: string;
   }[];
 };
-
 
 const ListItem = ({ allTaskData }: { allTaskData: INode[] }) => {
   const [performanceTask, setPerformanceTask] = useState<INode>({});
@@ -71,19 +75,18 @@ const ListItem = ({ allTaskData }: { allTaskData: INode[] }) => {
     extra_time_taken_to_finish_task = 0,
   } = performanceTask || {};
   useEffect(() => {
-    if (isArray(allTaskData)) { 
-      const filterData: any= 
-        allTaskData
-          .filter(item => ['Programming'].includes(`${item.name}`))
-          .map(i => {
-            return { ...i, name: 'focusedOn', id: 'abcd' };
-          })
+    if (isArray(allTaskData)) {
+      const filterData: any = allTaskData
+        .filter(item => ['Programming'].includes(`${item.name}`))
+        .map(i => {
+          return { ...i, name: 'focusedOn', id: 'abcd' };
+        });
       if (isArray(filterData)) {
         setPerformanceTask(mergeTasksData(filterData)[0]);
       }
     }
-    const timeDistrivutionData = calculateTimeDistribution(allTaskData)
-    setTimeSpentByCat(timeDistrivutionData)
+    const timeDistrivutionData = calculateTimeDistribution(allTaskData);
+    setTimeSpentByCat(timeDistrivutionData);
   }, [allTaskData]);
 
   return (
@@ -111,7 +114,11 @@ const ListItem = ({ allTaskData }: { allTaskData: INode[] }) => {
           </div>
           <div className='my-1 sm:my-0 col-span-12 md:col-span-2 lg:col-span-3 md:flex md:items-center'>
             <ProgressionBar
-              progression={getNumbers(performanceTask, 'total_performance', 'Programming')}
+              progression={getNumbers(
+                performanceTask,
+                'total_performance',
+                'Programming',
+              )}
             />
           </div>
           <div className='my-1 sm:my-0 col-span-12 md:col-span-3 lg:col-span-3 md:flex md:items-center'>
@@ -122,37 +129,38 @@ const ListItem = ({ allTaskData }: { allTaskData: INode[] }) => {
           </div>
         </div>
         <div className='flex flex-col gap-3 mt-10'>
-          {
-            isArray(timeSpentByCat) && timeSpentByCat.map((item: any, index: number) => {
-              return (
-                <TimeDistributionCard
-                  key={index}
-                  record={item}
-                />
-              )
-            })
+          {isArray(timeSpentByCat) &&
+            timeSpentByCat.map((item: any, index: number) => {
+              return <TimeDistributionCard key={index} record={item} />;
+            })}
 
-          }
-
-                <TimeDistributionCard 
-                  record={{
-                    "category": 'Wasted Time',
-                    "timeSpent":840 - (isArray(timeSpentByCat) ? timeSpentByCat.reduce((previous, current) => {
-                      return previous  + current.timeSpent
-                    }, 0):0),
-                    "task":  []
-                }}
-                />
-                <Notes 
-                allTaskData={allTaskData}
-                  record={{
-                    "category": 'Wasted Time',
-                    "timeSpent":840 - (isArray(timeSpentByCat) ? timeSpentByCat.reduce((previous, current) => {
-                      return previous  + current.timeSpent
-                    }, 0):0),
-                    "task":  []
-                }}
-                />
+          <TimeDistributionCard
+            record={{
+              category: 'Wasted Time',
+              timeSpent:
+                840 -
+                (isArray(timeSpentByCat)
+                  ? timeSpentByCat.reduce((previous, current) => {
+                      return previous + current.timeSpent;
+                    }, 0)
+                  : 0),
+              task: [],
+            }}
+          />
+          <Notes
+            allTaskData={allTaskData}
+            record={{
+              category: 'Notes',
+              timeSpent:
+                840 -
+                (isArray(timeSpentByCat)
+                  ? timeSpentByCat.reduce((previous, current) => {
+                      return previous + current.timeSpent;
+                    }, 0)
+                  : 0),
+              task: [],
+            }}
+          />
         </div>
       </Card>
     </div>

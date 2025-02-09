@@ -1,0 +1,140 @@
+{
+  "id": "1738546200",
+  "name": "Reporting",
+  "time": "03 Feb 2025",
+  "children": [
+    {
+      "id": "1738546200_1738549800",
+      "name": "7 AM to 8 AM",
+      "children": [
+        {
+          "id": "1738546200_1738549800_01",
+          "name": "eSkill",
+          "description": "conversation in josh talk",
+          "category": 1,
+          "status": "2",
+          "time_spent": "60",
+          "wasted_time": "0",
+          "focus_rate": "100",
+          "satisfaction_rate": "10",
+          "reason_for_satisfaction": "",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "1738553400_1738567800",
+      "name": "9 AM to 01 PM",
+      "children": [
+        {
+          "id": "1738553400_1738567800_01",
+          "name": "Management",
+          "description": "add sat/sun schedule in task reporting",
+          "category": 2,
+          "status": "2",
+          "time_spent": "25",
+          "wasted_time": "0",
+          "tag": "Management",
+          "estimated_time": "15",
+          "focus_rate": "0",
+          "satisfaction_rate": "10",
+          "reason_for_satisfaction": "",
+          "notes": ""
+        },
+        {
+          "id": "1738553400_1738567800_02",
+          "name": "learning",
+          "description": "note down and finish study of javascript important topics on array, object, string",
+          "category": 1,
+          "status": "2",
+          "time_spent": "200",
+          "tag": "js learning",
+          "wasted_time": "15",
+          "estimated_time": "155",
+          "focus_rate": "100",
+          "satisfaction_rate": "10",
+          "reason_for_satisfaction": "",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "1738567800_1738571400",
+      "name": "1 PM to 2 PM",
+      "children": [
+        {
+          "id": "1738567800_1738571400_01",
+          "name": "eSkill",
+          "description": "Conversation in josh talk",
+          "category": 2,
+          "status": "2",
+          "time_spent": "25",
+          "wasted_time": "5",
+          "estimated_time": "30",
+          "focus_rate": "0",
+          "tag": "e skill",
+          "satisfaction_rate": "10",
+          "reason_for_satisfaction": "",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "1738571400_1738589400",
+      "name": "2 PM to 7 PM",
+      "children": [
+        {
+          "id": "1738571400_1738589400_01",
+          "name": "Programming",
+          "description": "Quiz app",
+          "category": 2,
+          "status": "1",
+          "time_spent": "270",
+          "wasted_time": "30",
+          "extra_time_took_to_complete": "240",
+          "estimated_time": "240",
+          "tag": "Quiz application",
+          "focus_rate": "0",
+          "satisfaction_rate": "3",
+          "reason_for_satisfaction": "Time management not did at sub task level. so time estimate of whole task not achived",
+          "notes": ""
+        }
+      ]
+    },
+
+    {
+      "id": "1738596600_1738603800",
+      "name": "9 PM to 11 PM",
+      "children": [
+        {
+          "id": "1738596600_1738603800_01",
+          "name": "yk",
+          "description": "yk",
+          "category": 0,
+          "status": "0",
+          "time_spent": "0",
+          "wasted_time": "60",
+          "estimated_time": "0",
+          "tag": "creative",
+          "focus_rate": "0",
+          "satisfaction_rate": "5",
+          "reason_for_satisfaction": "Did not call to yuvan, no managed perfactly.did not prepare to other for perform yk schedule like vishay,puzzel.",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "1738546200_1738603800",
+      "name": "Notes",
+      "children": [
+        {
+          "id": "1738546200_1738603800_01",
+          "surynamaskar": 30,
+          "name": "note",
+          "deep/light sleep": "02:29/4:00",
+          "typing-speed": "547 cpm,740 char,8:01 ct, 6:08 act"
+        }
+      ]
+    }
+  ]
+}

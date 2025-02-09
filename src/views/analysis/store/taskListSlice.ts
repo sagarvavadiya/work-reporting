@@ -1,14 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { createDocument, getDocument } from '@/utils/firebase/firebaseFunction'
 
- 
- 
+
+
 export type TaskListState = {
-    loading: boolean  
-    addTaskLoading: boolean  
+    loading: boolean
+    addTaskLoading: boolean
     taskList:any[]
-    newTaskDialog: boolean
-   
+    newTaskDialog: boolean,
+    editWorkDialog: boolean,
+    editWorkData:any
+
 }
 
 export const SLICE_NAME = 'taskList'
@@ -30,20 +32,22 @@ export const addRecord = createAsyncThunk(
         console.log(`addRecord`,response)
         return response.data
     }
-) 
+)
 
 const initialState: TaskListState = {
-    loading: false, 
-    addTaskLoading: false, 
+    loading: false,
+    addTaskLoading: false,
     newTaskDialog:false,
-    taskList:[], 
+    editWorkDialog:false,
+    editWorkData:{},
+    taskList:[],
 }
 
 const projectListSlice = createSlice({
     name: `${SLICE_NAME}/state`,
     initialState,
     reducers: {
-        
+
         setTaskData: (state, action) => {
             console.log({setTaskData:action})
             state.taskList = action.payload
@@ -51,7 +55,13 @@ const projectListSlice = createSlice({
         toggleNewTaskDialog: (state, action) => {
             state.newTaskDialog = action.payload
         },
-    }, 
+        toggleEditWorkDialog: (state, action) => {
+            state.editWorkDialog = action.payload
+        },
+        toggleEditWorkData: (state, action) => {
+            state.editWorkData = action.payload
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getList.fulfilled, (state, action) => {
@@ -62,17 +72,17 @@ const projectListSlice = createSlice({
             .addCase(getList.pending, (state) => {
                 state.loading = true
             })
-            .addCase(addRecord.fulfilled, (state, action) => { 
+            .addCase(addRecord.fulfilled, (state, action) => {
                 state.addTaskLoading = false
             })
             .addCase(addRecord.pending, (state) => {
                 state.addTaskLoading = true
             })
-            
+
     },
 })
 
-export const {  setTaskData,   toggleNewTaskDialog } =
+export const {  setTaskData,toggleNewTaskDialog,toggleEditWorkDialog,toggleEditWorkData } =
     projectListSlice.actions
 
 export default projectListSlice.reducer

@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Table from '@/components/ui/Table';
 import Tag from '@/components/ui/Tag';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import {
   useReactTable,
   getCoreRowModel,
@@ -13,10 +13,12 @@ import {
 import ListItem from './ListItem';
 import { INode } from '@/views/tasks/type';
 import { HiClock, HiEye, HiOutlineClipboardCheck } from 'react-icons/hi';
-import { calculateShortFallTime, getNumbers, getSum } from '@/utils/helper';
+import { calculateShortFallTime, formatDateFromTimestamp, getNumbers, getSum } from '@/utils/helper';
 // import TaskRecordView from '@/views/tasks/components/TaskRecordView';
 import TaskDeleteConfirmation from '@/views/tasks/components/TaskDeleteConfirmation';
 import TaskRecordView from '@/views/tasks/components/TaskRecordView';
+import { setTaskData, toggleEditWorkData, toggleEditWorkDialog, useAppDispatch, useAppSelector } from '../../store';
+import { deleteDocument, getDocument } from '@/utils/firebase/firebaseFunction';
 
 type Task = {
   taskId: string;
@@ -65,7 +67,7 @@ const CategoryTag = ({ category }: { category: number }) => {
     default:
       return null;
   }
-}; 
+};
 
  const TimeManagementBox = ({ row }: { row: any }) => {
   const {
@@ -112,12 +114,42 @@ const ActionColumn = ({ data, handleView }: { data: INode, handleView: (data: an
       </div>
   )
 }
-const MyTasks = ({ allTaskData }: { allTaskData: INode[] }) => {
+
+
+const MyTasks = ({ allTaskData,currentDay }: { allTaskData: INode[],currentDay:number }) => {
 
   const [openViewModal, setOpenViewModal] = useState<boolean>(false)
   const [modalData,setModalData] = useState<any>({})
+  const [today,setToday] = useState<string>("")
+  const dispatch = useAppDispatch()
+    const taskListState = useAppSelector(
+      (state) => state.taskList.data.taskList
+    )
+
+  const handleEditWork = () =>{
+    dispatch(toggleEditWorkDialog(true))
+    dispatch(toggleEditWorkData(taskListState[currentDay-1]))
+  }
+    const handleDelete = async () => {
+      console.log(taskListState[currentDay-1]);
+      try {
+        const response = await deleteDocument(parseInt(`${taskListState[currentDay-1]['id']}`),'reporting');
+        console.log({ response });
+        if (response.status === 200) {
+          const getData = await getDocument('reporting');
+          if (getData.status === 200) {
+            dispatch(setTaskData(getData.data));
+          }
+        } else {
+          alert('Error on creating task reporting:' + response.data.message);
+        }
+      } catch (error: any) {
+        alert(error?.message ? error?.message : error);
+        return false;
+      }
+    };
   const handleView: (data?: any) => void = (data: any) => {
-   
+
       if (openViewModal) {
           setOpenViewModal(false)
 
@@ -204,7 +236,7 @@ const navigate = useNavigate();
     ],
     [],
   );
- 
+
   const table = useReactTable({
     data,
     columns,
@@ -215,13 +247,29 @@ const navigate = useNavigate();
     navigate('/app/project/issue');
   };
 
+
+  useEffect(()=>{
+    try {
+      const work_date =   formatDateFromTimestamp(`${allTaskData[0]['id']?.split("_")[0]}`)
+      setToday(work_date)
+    } catch (error) {
+      console.log(error);
+    }
+  },[allTaskData])
   return (
     <Card>
       <div className='flex items-center justify-between mb-6'>
-        <h4>My Tasks</h4>
-        <Button size='sm' onClick={onViewAllTask}>
-          View All
+        <h4 onClick={()=>console.log(allTaskData[0]['id']?.split("_")[1],formatDateFromTimestamp(`${allTaskData[0]['id']?.split("_")[1]}`))
+        }>My Tasks - {today}</h4>
+        <div className='flex gap-4'>
+            <Button size='sm' onClick={handleDelete} >
+          Delete Data
         </Button>
+        <Button size='sm' onClick={handleEditWork}>
+          Edit Data
+        </Button>
+        </div>
+
       </div>
       <Table>
         <THead>

@@ -2,7 +2,7 @@ import { FormItem, FormContainer } from '@/components/ui/Form'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { Field, Form, Formik } from 'formik'
-import * as Yup from 'yup' 
+import * as Yup from 'yup'
 import { createDocument, getDocument } from '@/utils/firebase/firebaseFunction'
 import { getValidParsedJsonData } from '@/utils/helper'
 import { HiOutlinePlusCircle } from 'react-icons/hi'
@@ -21,7 +21,7 @@ const checkValidQuizData = (data: string) => {
                 isValid = false
                 return false
             }
-        }) 
+        })
         return isValid
     } catch (error) {
         console.log(error)
@@ -43,7 +43,7 @@ const validationSchema = Yup.object().shape({
         //     'Json object is not valid: format: [{"id":"1","question":"q","options":["a","b","ad","v"],"answer":"1"},...]',
         //     checkValidQuizData
         // ),
-}) 
+})
 const NewTaskForm = () => {
     const dispatch = useAppDispatch()
     const onDialogClose = () => {
@@ -52,16 +52,16 @@ const NewTaskForm = () => {
     const handleSubmit = async (value: FormModel) => {
         try {
             const { jsonData, name } = value
-            const parsedData = JSON.parse(jsonData);
-            console.log(parsedData)
-            const response = await createDocument({table:"reporting", jsonData:parsedData })
+            // const parsedData = JSON.parse(jsonData);
+            // console.log(parsedData)
+            const response = await createDocument({table:"reporting", jsonData })
             console.log({ response })
 
             if (response.status === 200) {
                 const getData = await getDocument('reporting')
                 if (getData.status === 200) {
                     dispatch(setTaskData(getData.data))
-                } 
+                }
                 onDialogClose()
             } else {
                 alert('Error on creating task reporting:' + response.data.message)
@@ -72,7 +72,7 @@ const NewTaskForm = () => {
         }
     }
 
-   
+
     return (
         <div  >
             <Formik
@@ -121,7 +121,7 @@ const NewTaskForm = () => {
 
 
 
-                            <FormItem > 
+                            <FormItem >
                                 <Button
                                     type="reset"
                                     className="ltr:mr-2 rtl:ml-2"
@@ -144,4 +144,4 @@ const NewTaskForm = () => {
 export default NewTaskForm
 
 
- 
+
